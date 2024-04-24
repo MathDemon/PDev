@@ -31,9 +31,9 @@ function Instance:init(x, y, img)
     
 end
 
-function Instance:GetPosition()
-    print(self.x)
-end
+-- function Instance:getposition()
+--     print(x)
+-- end
 
 function Instance:update()
 

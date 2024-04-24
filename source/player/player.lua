@@ -51,11 +51,27 @@ function Player:update()
 
         instance = Instance(self.x,self.y,"player/player")
         instance:add()
+
+
         self.listInstance[self.index] = instance
         self.index += 1
 
-        print(instance.GetPosition())
+        c = table.getsize(self.listInstance)
+
+        for i, inst in pairs(self.listInstance) do
+            print(i .. " - x = " .. inst.x .. "y = " .. inst.y )
+        end
         
     end
+
+    if pd.buttonJustPressed(pd.kButtonB) then
+
+        for i, inst in pairs(self.listInstance) do
+            gfx.sprite.removeSprite(inst)
+        end
+        
+    end
+
+    
     
 end
