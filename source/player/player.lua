@@ -9,7 +9,7 @@ local gfx <const> = pd.graphics
 
 class('Player').extends(gfx.sprite)
 
-function Player:init(x, y, img)
+function Player:init(x, y, img, availableBox)
     Player.super.init(self)
 
     self.x = x
@@ -17,6 +17,7 @@ function Player:init(x, y, img)
     self.img = img
     self.listInstance = {}
     self.index = 1
+    self.availableBox = availableBox
     
     local playerImage = gfx.image.new(img)
         assert(playerImage)
@@ -56,6 +57,9 @@ function Player:update()
         self.listInstance[self.index] = instance
         self.index += 1
 
+        self.getVictoryCondition(self)
+        self.updateAvailableBox(self, instance)
+
         c = table.getsize(self.listInstance)
 
         for i, inst in pairs(self.listInstance) do
@@ -74,4 +78,28 @@ function Player:update()
 
     
     
+end
+
+function Player:getVictoryCondition()
+    if table.getsize(self.listInstance) > 3 then
+        print("")
+    end
+end
+
+function Player:updateAvailableBox(instance)
+    x = instance.x
+    y = instance.y
+
+    print(self.availableBox[1][1])
+
+    for i, case in pairs(self.availableBox) do
+        print(i)
+        -- print(i .. " = " .. case[1] .. " " .. case[2])
+    end
+
+    if self.availableBox[{x,y}] then
+        print("PouetPouet")
+    end
+
+
 end

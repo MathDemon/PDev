@@ -19,7 +19,8 @@ local function initialize()
 	local level = level()
 	level.createLevel()
 
-	local player = Player(120 ,120, "player/player")
+
+	local player = Player(120 ,120, "player/player",level)
 	player:add()
 end
 
