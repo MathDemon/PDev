@@ -17,11 +17,12 @@ local function initialize()
 	gui.createGUI()
 
 	local level = level()
-	level.createLevel()
 
+	availableBox = level.createLevel()
 
-	local player = Player(120 ,120, "player/player",level)
+	local player = Player(120 ,120, "player/player")
 	player:add()
+
 end
 
 initialize()

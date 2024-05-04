@@ -3,6 +3,7 @@ import "CoreLibs/object"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 import "playerInstance"
+import "level"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
@@ -49,21 +50,20 @@ function Player:update()
     end
 
     if pd.buttonJustPressed(pd.kButtonA) then
+    
+        if level.isAvailableBox(self, availableBox, self.x,self.y) then
+            instance = Instance(self.x,self.y,"player/player")
+            instance:add()
 
-        instance = Instance(self.x,self.y,"player/player")
-        instance:add()
 
+            self.listInstance[self.index] = instance
+            self.index += 1
 
-        self.listInstance[self.index] = instance
-        self.index += 1
+            self.getVictoryCondition(self)
+            self.availableBox = level.updateAvailableBox(self, availableBox, instance)
 
-        self.getVictoryCondition(self)
-        self.updateAvailableBox(self, instance)
-
-        c = table.getsize(self.listInstance)
-
-        for i, inst in pairs(self.listInstance) do
-            print(i .. " - x = " .. inst.x .. "y = " .. inst.y )
+        else
+            print("you can't play here.")
         end
         
     end
@@ -82,24 +82,8 @@ end
 
 function Player:getVictoryCondition()
     if table.getsize(self.listInstance) > 3 then
-        print("")
+        
+        
     end
 end
 
-function Player:updateAvailableBox(instance)
-    x = instance.x
-    y = instance.y
-
-    print(self.availableBox[1][1])
-
-    for i, case in pairs(self.availableBox) do
-        print(i)
-        -- print(i .. " = " .. case[1] .. " " .. case[2])
-    end
-
-    if self.availableBox[{x,y}] then
-        print("PouetPouet")
-    end
-
-
-end
